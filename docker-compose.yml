@@ -1,0 +1,25 @@
+version: "3.8"
+labels:
+  - "Maintained by=Lin Bake"
+services:
+  scm:
+    image: gitlab/gitlab-ce
+    name: gitlab
+    restart: always
+    network: containernet
+    #volumes: 
+    # - /home/gitlab/config:/etc/gitlab
+    # - /home/gitlab/logs:/var/log/gitlab
+    # - /home/gitlab/data:/var/opt/gitlab
+    ports:
+      - 80:80
+      - 443:443
+      - 222:22
+  scm-runner:
+    image: wowlc0203/gitlab-runner
+  database:
+  deployment:
+ networks:
+   containernet:
+ volumes:
+   git-data:
