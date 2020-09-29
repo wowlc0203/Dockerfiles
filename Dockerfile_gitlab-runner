@@ -1,5 +1,7 @@
 FROM gitlab/gitlab-runner:latest
 
+LABEL maintainer="Lin Bake<wowlc0203@qq.com>"
+
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         curl \
