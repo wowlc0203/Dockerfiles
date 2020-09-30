@@ -1,0 +1,1 @@
+docker exec runner gitlab-runner register --non-interactive --url "http://172.18.0.2/" --registration-token "qGKy2y7SbJosh4mmHsgL" --name "a baisc shell runner" --tag-list "shell,test" --locked="false" --executor "shell" --run-untagged="true" --access-level="not_protected"
