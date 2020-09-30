@@ -26,11 +26,13 @@ services:
     image: wowlc0203/gitlab-runner
     container_name: runner
     restart: always
-    environment:
-      - CI_SERVER_URL='http://172.18.0.2/'
-      - CI_JOB_TOKEN='qGKy2y7SbJosh4mmHsgL'
-      - CI_RUNNER_DESCRIPTION='gitlab job runner'
-      - CI_RUNNER_TAGS='test'
+    #entrypoint: gitlab-runner register --config /tmp/runner-config.toml --non-interactive --url "http://172.18.0.2/" --registration-token "qGKy2y7SbJosh4mmHsgL" --name "a baisc shell runner" --tag-list "shell,test" --locked="false" --executor "shell" --run-untagged="true" --access-level="not_protected"
+    #command: gitlab-runner register --config /tmp/runner-config.toml --non-interactive --url "http://172.18.0.2/" --registration-token "qGKy2y7SbJosh4mmHsgL" --name "a baisc shell runner" --tag-list "shell,test" --locked="false" --executor "shell" --run-untagged="true" --access-level="not_protected"
+    #environment:
+    #  - CI_SERVER_URL='http://172.18.0.2/'
+    #  - CI_JOB_TOKEN='qGKy2y7SbJosh4mmHsgL'
+    #  - CI_RUNNER_DESCRIPTION='gitlab job runner'
+    #  - CI_RUNNER_TAGS='test'
     networks:
       containernet:
         ipv4_address: 172.18.0.3
