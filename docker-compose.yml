@@ -39,8 +39,36 @@ services:
     #volumes: 
     #  - /srv/gitlab-runner/config:/etc/gitlab-runner || gitlab-runner-config:/etc/gitlab-runner
     #  - /var/run/docker.sock:/var/run/docker.sock
-  #database:
-  #deployment:
+  database:
+    image: mysql
+    container_name: database
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_ROOT_PASSWORD=P@ssw0rd
+      - MYSQL_USER=bake
+      - MYSQL_PASSWORD=P@ssw0rd
+    networks:
+      containernet:
+        ipv4_address: 172.18.0.3
+  databaseadmin:
+    image: adminer
+    restart: always
+    ports:
+      - "8888:8080"
+    networks:
+      containernet:
+        ipv4_address: 172.18.0.4
+  deployment:
+    image: wowlc0203/rabbitmq
+    container_name: runtime
+    restart: always
+    hostname: 'rabbitmqServer'
+    ports:
+      - 15672:15672
+    networks:
+      containernet:
+        ipv4_address: 172.18.0.5
 networks:
   containernet:
     name: containernet
