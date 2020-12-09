@@ -50,7 +50,7 @@ services:
       - MYSQL_PASSWORD=P@ssw0rd
     networks:
       containernet:
-        ipv4_address: 172.18.0.3
+        ipv4_address: 172.18.0.4
   databaseadmin:
     image: adminer
     container_name: databaseAdminer
@@ -59,7 +59,7 @@ services:
       - "8888:8080"
     networks:
       containernet:
-        ipv4_address: 172.18.0.4
+        ipv4_address: 172.18.0.5
   deployment:
     image: wowlc0203/rabbitmq
     container_name: runtime
@@ -69,7 +69,7 @@ services:
       - 15672:15672
     networks:
       containernet:
-        ipv4_address: 172.18.0.5
+        ipv4_address: 172.18.0.6
 networks:
   containernet:
     name: containernet
