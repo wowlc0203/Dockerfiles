@@ -6,35 +6,12 @@ RUN rabbitmq-plugins enable rabbitmq_management
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        ca-certificates \
-        \
-        # .NET Core dependencies
-        libc6 \
-        libgcc1 \
-        libgssapi-krb5-2 \
-        libicu60 \
-        libssl1.1 \
-        libstdc++6 \
-        zlib1g \
     && rm -rf /var/lib/apt/lists/*
-
-ENV \
-    # Configure web servers to bind to port 80 when present
-    ASPNETCORE_URLS=http://+:80 \
-    # Enable detection of running in a container
-    DOTNET_RUNNING_IN_CONTAINER=true
-
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        curl \
-    && rm -rf /var/lib/apt/lists/*
+RUN wget https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb \
+    && sudo dpkg -i packages-microsoft-prod.deb
 
 # Install .NET Core
-RUN dotnet_version=3.1.8 \
-    && curl -SL --output dotnet.tar.gz https://dotnetcli.azureedge.net/dotnet/Runtime/$dotnet_version/dotnet-runtime-$dotnet_version-linux-x64.tar.gz \
-    && dotnet_sha512='acfb3233ecd06571a6b289802962a14a02dfb41b8c96e7d1516044d0ee800dbdede2a327bf152752fd26aecf6608c7fe31d28cbcb28f6091f4cadda422adf552' \
-    && echo "$dotnet_sha512 dotnet.tar.gz" | sha512sum -c - \
-    && mkdir -p /usr/share/dotnet \
-    && tar -ozxf dotnet.tar.gz -C /usr/share/dotnet \
-    && rm dotnet.tar.gz \
-    && ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
+RUN sudo apt-get update; \
+  sudo apt-get install -y apt-transport-https && \
+  sudo apt-get update && \
+  sudo apt-get install -y dotnet-sdk-5.0
