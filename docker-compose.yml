@@ -75,9 +75,6 @@ services:
     container_name: nuget
     restart: always
     command: nuget-klondike htpasswd -b -c /data/klondike_users bake P@ssw0rd
-    volumes: 
-      - /home/nuget-klondike/Settings.config:/app/Settings.config
-      - /home/nuget-klondike/data:/data
     ports:
       - "9000:80"
     networks:
