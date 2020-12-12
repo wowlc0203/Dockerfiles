@@ -10,6 +10,7 @@ services:
         gitlab_rails['initial_root_password'] = 'P@ssw0rd'
         gitlab_rails['initial_shared_runners_registration_token'] = 'qGKy2y7SbJosh4mmHsgL'
     container_name: gitlab
+    hostname: 'scm'
     restart: always
     networks:
       containernet:
@@ -25,6 +26,7 @@ services:
   scm-runner:
     image: wowlc0203/gitlab-runner
     container_name: runner
+    hostname: 'runner'
     restart: always
     #entrypoint: gitlab-runner register --config /tmp/runner-config.toml --non-interactive --url "http://172.18.0.2/" --registration-token "qGKy2y7SbJosh4mmHsgL" --name "a baisc shell runner" --tag-list "shell,test" --locked="false" --executor "shell" --run-untagged="true" --access-level="not_protected"
     #command: gitlab-runner register --config /tmp/runner-config.toml --non-interactive --url "http://172.18.0.2/" --registration-token "qGKy2y7SbJosh4mmHsgL" --name "a baisc shell runner" --tag-list "shell,test" --locked="false" --executor "shell" --run-untagged="true" --access-level="not_protected"
@@ -42,6 +44,7 @@ services:
   database:
     image: mysql
     container_name: database
+    hostname: 'database'
     restart: always
     command: --default-authentication-plugin=mysql_native_password
     environment:
@@ -54,6 +57,7 @@ services:
   databaseadmin:
     image: adminer
     container_name: adminer
+    hostname: 'adminer'
     restart: always
     ports:
       - "8888:8080"
@@ -64,7 +68,7 @@ services:
     image: wowlc0203/rabbitmq
     container_name: runtime
     restart: always
-    hostname: 'rabbitmqServer'
+    hostname: 'runtime'
     ports:
       - 15672:15672
     networks:
@@ -73,6 +77,7 @@ services:
   nuget:
     image: didstopia/nuget-klondike
     container_name: nuget
+    hostname: 'nuget'
     restart: always
     command: htpasswd -b -c /data/klondike_users bake P@ssw0rd
     ports:
