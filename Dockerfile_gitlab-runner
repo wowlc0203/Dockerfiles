@@ -19,6 +19,7 @@ RUN sudo apt-get update; \
 	sudo apt-get update && \
 	sudo apt-get install -y dotnet-sdk-5.0 \
     && dotnet help
+    && dotnet nuget add source http://172.18.0.7/api/odata --name Klondike
 
 # Install PowerShell global tool
 RUN powershell_version=7.2.0-preview.1 \
