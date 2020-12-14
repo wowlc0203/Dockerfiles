@@ -46,35 +46,35 @@ services:
     networks:
       containernet:
         ipv4_address: 172.18.0.4
-  nuget:
-    image: didstopia/nuget-klondike
-    container_name: nuget
-    hostname: 'nuget'
+    scm-runner:
+    image: wowlc0203/gitlab-runner
+    container_name: runner
+    hostname: 'runner'
     restart: always
-    command: htpasswd -b -c /data/klondike_users bake P@ssw0rd
-    ports:
-      - "9000:8080"
+    #entrypoint: gitlab-runner register --config /tmp/runner-config.toml --non-interactive --url "http://172.18.0.2/" --registration-token "qGKy2y7SbJosh4mmHsgL" --name "a baisc shell runner" --tag-list "shell,test" --locked="false" --executor "shell" --run-untagged="true" --access-level="not_protected"
+    #command: gitlab-runner register --config /tmp/runner-config.toml --non-interactive --url "http://172.18.0.2/" --registration-token "qGKy2y7SbJosh4mmHsgL" --name "a baisc shell runner" --tag-list "shell,test" --locked="false" --executor "shell" --run-untagged="true" --access-level="not_protected"
+    #environment:
+    #  - CI_SERVER_URL='http://172.18.0.2/'
+    #  - CI_JOB_TOKEN='qGKy2y7SbJosh4mmHsgL'
+    #  - CI_RUNNER_DESCRIPTION='gitlab job runner'
+    #  - CI_RUNNER_TAGS='test'
     networks:
       containernet:
         ipv4_address: 172.18.0.5
-  #scm-runner:
-  #  image: wowlc0203/gitlab-runner
-  #  container_name: runner
-  #  hostname: 'runner'
+    volumes: 
+      - /srv/gitlab-runner/config:/etc/gitlab-runner
+      - /var/run/docker.sock:/var/run/docker.sock
+  #nuget:
+  #  image: didstopia/nuget-klondike
+  #  container_name: nuget
+  #  hostname: 'nuget'
   #  restart: always
-  #  #entrypoint: gitlab-runner register --config /tmp/runner-config.toml --non-interactive --url "http://172.18.0.2/" --registration-token "qGKy2y7SbJosh4mmHsgL" --name "a baisc shell runner" --tag-list "shell,test" --locked="false" --executor "shell" --run-untagged="true" --access-level="not_protected"
-  #  #command: gitlab-runner register --config /tmp/runner-config.toml --non-interactive --url "http://172.18.0.2/" --registration-token "qGKy2y7SbJosh4mmHsgL" --name "a baisc shell runner" --tag-list "shell,test" --locked="false" --executor "shell" --run-untagged="true" --access-level="not_protected"
-  #  #environment:
-  #  #  - CI_SERVER_URL='http://172.18.0.2/'
-  #  #  - CI_JOB_TOKEN='qGKy2y7SbJosh4mmHsgL'
-  #  #  - CI_RUNNER_DESCRIPTION='gitlab job runner'
-  #  #  - CI_RUNNER_TAGS='test'
+  #  command: htpasswd -b -c /data/klondike_users bake P@ssw0rd
+  #  ports:
+  #    - "9000:8080"
   #  networks:
   #    containernet:
   #      ipv4_address: 172.18.0.6
-  #  volumes: 
-  #    - /srv/gitlab-runner/config:/etc/gitlab-runner
-  #    - /var/run/docker.sock:/var/run/docker.sock
   #databaseadmin:
   #  image: adminer
   #  container_name: adminer
