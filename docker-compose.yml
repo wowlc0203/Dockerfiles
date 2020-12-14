@@ -46,7 +46,7 @@ services:
     networks:
       containernet:
         ipv4_address: 172.18.0.4
-    scm-runner:
+  scm-runner:
     image: wowlc0203/gitlab-runner
     container_name: runner
     hostname: 'runner'
