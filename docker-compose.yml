@@ -64,17 +64,17 @@ services:
     volumes: 
       - /srv/gitlab-runner/config:/etc/gitlab-runner
       - /var/run/docker.sock:/var/run/docker.sock
-  #nuget:
-  #  image: didstopia/nuget-klondike
-  #  container_name: nuget
-  #  hostname: 'nuget'
-  #  restart: always
-  #  command: htpasswd -b -c /data/klondike_users bake P@ssw0rd
-  #  ports:
-  #    - "9000:8080"
-  #  networks:
-  #    containernet:
-  #      ipv4_address: 172.18.0.6
+  nuget:
+    image: didstopia/nuget-klondike
+    container_name: nuget
+    hostname: 'nuget'
+    restart: always
+    command: htpasswd -b -c /data/klondike_users bake P@ssw0rd
+    ports:
+      - "9000:8080"
+    networks:
+      containernet:
+        ipv4_address: 172.18.0.6
   #databaseadmin:
   #  image: adminer
   #  container_name: adminer
